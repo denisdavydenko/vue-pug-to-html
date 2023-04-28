@@ -15,7 +15,7 @@ module.exports = function(filePath) {
       return pug.render(contents, {
         doctype: "html",
         pretty: true,
-        plugins: [plugin]
+        plugins: [plugin],
       });
     },
 

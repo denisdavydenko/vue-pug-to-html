@@ -4,7 +4,7 @@
   "description": "convert vue files templates from pug to html",
   "main": "index.js",
   "bin": {
-    "pugToHtml": "bin/index.js"
+    "vuePugToHtml": "bin/index.js"
   },
   "scripts": {
     "test": "mocha test/",
@@ -23,6 +23,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "jade": "^1.11.0",
+    "klaw-sync": "^6.0.0",
     "pug": "^2.0.3",
     "pug-walk": "^1.1.7"
   },

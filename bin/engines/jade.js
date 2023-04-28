@@ -13,7 +13,7 @@ module.exports = function(filePath) {
       console.log(filePath, contents);
       return jade.render(contents, {
         doctype: "html",
-        pretty: true
+        pretty: true,
       });
     },
 

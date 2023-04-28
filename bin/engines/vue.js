@@ -6,17 +6,19 @@ const jade = require("jade");
 const Attrs = require("jade/lib/nodes/attrs");
 Attrs.prototype.setAttribute = function(name, val, escaped) {
   if (name !== "class" && this.attributeNames.indexOf(name) !== -1) {
-    throw new Error("Duplicate attribute \"" + name + "\" is not allowed.");
+    throw new Error(`Duplicate attribute "${name}" is not allowed.`);
   }
   this.attributeNames.push(name);
   const bindAttrRE = /^v-bind:|^:/;
   const eventAttrRE = /^v-on:|^@/;
   const slotAttrRE = /^v-slot:|^#/;
   const dirAttrRE = /^v-([^:]+)(?:$|:(.*)$)/;
-  if (name.match(bindAttrRE) ||
+  if (
+    name.match(bindAttrRE) ||
     name.match(eventAttrRE) ||
     name.match(slotAttrRE) ||
-    name.match(dirAttrRE)) {
+    name.match(dirAttrRE)
+  ) {
     escaped = false;
   }
   this.attrs.push({ name: name, val: val, escaped: escaped });
@@ -77,18 +79,16 @@ module.exports = function(filePath) {
     convertTemplate(force) {
       const templateLang = getVueTemplateLang();
       if (templateLang === TEMPLATE_LANG.PUG) {
-        return pug
-          .render(findTemplate(), {
-            doctype: "html",
-            pretty: true,
-            plugins: [pugPlugin],
-          });
+        return pug.render(findTemplate(), {
+          doctype: "html",
+          pretty: true,
+          plugins: [pugPlugin],
+        });
       } else if (templateLang === TEMPLATE_LANG.JADE) {
-        return jade
-          .render(findTemplate(), {
-            doctype: "html",
-            pretty: true,
-          });
+        return jade.render(findTemplate(), {
+          doctype: "html",
+          pretty: true,
+        });
       }
       return findTemplate();
     },
