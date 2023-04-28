@@ -27,10 +27,16 @@ for (const file of files) {
   else continue;
 
   if (engine.name === "vue" && !engine.hasSupportedVueTemplate()) {
-    console.log(chalk.red("Not found supported template lang", file.path));
+    console.log(chalk.yellow("Not found supported template lang", file.path));
     continue;
   }
-  const compiledResult = engine.convertTemplate();
-  console.log(chalk.green("processed: ", file.path));
-  engine.saveToFile(compiledResult);
+  try {
+    const compiledResult = engine.convertTemplate();
+    console.log(chalk.green("processed: ", file.path));
+    engine.saveToFile(compiledResult);
+  } catch (error) {
+    console.log(error);
+    console.log(chalk.red("Error path: ", file.path));
+    return error;
+  }
 }
